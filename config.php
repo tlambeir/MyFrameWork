@@ -13,15 +13,26 @@ $conn = mysql_connect("localhost","root","root")
  * using mysqli_connect instead
  */
 
-$databaseHost = 'panel.mspotter.be';
+/*$databaseHost = 'panel.mspotter.be';
 $databaseName = 'zadmin_easydungeon';
 $databaseUsername = 'easydungeon';
-$databasePassword = 'na5age7uz';
+$databasePassword = 'na5age7uz';*/
+
+$databaseHost = 'localhost:3306';
+$databaseName = 'heroes';
+$databaseUsername = 'root';
+$databasePassword = '';
 
 $mysqli = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, $databaseName);
+if(!$mysqli){
+    echo "database connection error";
+    die;
+}
 
 //getting id of the data from url
 
+$route = explode('/', $_SERVER['REQUEST_URI']);
+$action = $route[1];
 
 $action = str_replace("/","",$_SERVER["REQUEST_URI"]);
 
