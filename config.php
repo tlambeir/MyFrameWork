@@ -34,8 +34,6 @@ if(!$mysqli){
 $route = explode('/', $_SERVER['REQUEST_URI']);
 $action = $route[1];
 
-$action = str_replace("/","",$_SERVER["REQUEST_URI"]);
-
 $tables = array(
     "users" => array(
         "fields" => array(
