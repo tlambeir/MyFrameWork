@@ -26,9 +26,9 @@
 
       call($controller, $action, $actionWith);
     } else {
-      call('heroes', 'error');
+      call('heroes', 'error', $actionWith);
     }
   } else {
-    call('heroes', 'error');
+    call('heroes', 'error', $actionWith);
   }
 ?>

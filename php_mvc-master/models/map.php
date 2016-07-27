@@ -96,7 +96,7 @@ class Map extends Model{
                 "name" => $this->name
             ));
         }
-
+        unset($map->table);
         return $map;
     }
 }

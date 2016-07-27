@@ -1,55 +1,29 @@
 <?php
-  class MapsController {
+require_once ("http_controller.php");
+  class MapsController extends httpController{
 
-      private $actionWith;
-
-      public function __construct($actionWith) {
-          $this->actionWith = $actionWith;
+      function __construct($actionWith) {
+          parent::__construct($actionWith);
+          $this->model = new Map();
       }
 
-    public function GET() {
-        // we store all the maps in a variable
-        $map = new Map();
-        $maps = array();
-        if(!$this->actionWith){
-            $maps = $map->fetchAll();
-        } else {
-            $maps[] = $map->FetchById($this->actionWith);
-        }
-        require_once('views/maps/json.php');
-    }
+      public function GET() {
+          $array = $this->fetchAll();
+          require_once('views/json.php');
+      }
 
       public function POST() {
-          // we store all the maps in a variable
-          $post = json_decode(file_get_contents("php://input"));
-          $map = new Map();
-          $map->setName($post->name)
-              ->setImagePath($post->imagePath);
-          $maps = array();
-          $map = $map->save();
-          unset($map->table);
-          $maps[] = $map;
-          require_once('views/maps/json.php');
+          $this->model->setName($this->post->name)
+              ->setImagePath($this->post->imagePath);
+          $array = $this->save();
+          require_once('views/json.php');
       }
 
       public function PUT() {
-          // we store all the maps in a variable
-          $post = json_decode(file_get_contents("php://input"));
-          $map = new Map();
-          $map->setId($post->id)
-              ->setName($post->name)
-              ->setImagePath($post->imagePath);
-          $maps = array();
-          $map = $map->save();
-          unset($map->table);
-          $maps[] = $map;
-          require_once('views/maps/json.php');
-      }
-
-      public function DELETE(){
-          $map = new Map();
-          $map->setId($this->actionWith);
-          $map->delete();
+          $this->model->setId($this->post->id)
+              ->setName($this->post->name)
+              ->setImagePath($this->post->imagePath);
+          $array = $this->save();
+          require_once('views/json.php');
       }
   }
-?>

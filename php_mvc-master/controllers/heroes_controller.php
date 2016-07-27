@@ -1,12 +1,33 @@
 <?php
-  class HeroesController {
+require_once ("http_controller.php");
+class HeroesController extends httpController{
 
-    public function home() {
-      require_once('views/heroes/home.php');
+    function __construct($actionWith) {
+        parent::__construct($actionWith);
+        $this->model = new Hero();
     }
 
-    public function error() {
-      require_once('views/heroes/error.php');
+    public function GET() {
+        $array = $this->fetchAll();
+        require_once('views/json.php');
     }
-  }
-?>
+
+    public function POST() {
+        $this->model->setName($this->post->name)
+            ->setImagePath($this->post->imagePath)
+            ->setPosX($this->post->posX)
+            ->setPosY($this->post->posY);
+        $array = $this->save();
+        require_once('views/json.php');
+    }
+
+    public function PUT() {
+        $this->model->setId($this->post->id)
+            ->setName($this->post->name)
+            ->setImagePath($this->post->imagePath)
+            ->setPosX($this->post->posX)
+            ->setPosY($this->post->posY);
+        $array = $this->save();
+        require_once('views/json.php');
+    }
+}

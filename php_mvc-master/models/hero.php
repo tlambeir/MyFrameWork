@@ -1,57 +1,161 @@
 <?php
-class Hero {
-    // we define 3 attributes
-    // they are public so that we can access them using $post->author directly
+require_once ("model.php");
+class Hero extends Model{
 
     public $id;
     public $name;
     public $posX;
     public $posY;
     public $imagePath;
+    /**
+     * @var string
+     */
+    public $table = "heroes";
 
-
-    public function __construct($id, $name, $posX, $posY, $imagePath) {
-        $this->id      = $id;
-        $this->name  = $name;
-        $this->posX = $posX;
-        $this->posY  = $posY;
-        $this->imagePath = $imagePath;
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
-    public static function all() {
-        $list = [];
-        $db = Db::getInstance();
-        $req = $db->query('SELECT * FROM heroes');
+    /**
+     * @param $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosX()
+    {
+        return $this->posX;
+    }
+
+    /**
+     * @param $posX
+     * @return $this
+     */
+    public function setPosX($posX)
+    {
+        $this->posX = $posX;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosY()
+    {
+        return $this->posY;
+    }
+
+    /**
+     * @param $posY
+     * @return $this
+     */
+    public function setPosY($posY)
+    {
+        $this->posY = $posY;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImagePath()
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param $imagePath
+     * @return $this
+     */
+    public function setImagePath($imagePath)
+    {
+        $this->imagePath = $imagePath;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function fetchAll() {
+        $list = array();
         // we create a list of Post objects from the database results
-        foreach($req->fetchAll() as $post) {
-            $list[] = new Post(
-                $post['id'],
-                $post['name'],
-                $post['posX'],
-                $post['posY'],
-                $post['author']
-            );
+        foreach($this->all() as $result) {
+            $hero = new hero();
+            $hero->setId($result['id'])
+                ->setImagePath($result['imagePath'])
+                ->setName($result['name'])
+                ->setPosY($result['posY'])
+                ->setPosX($result['posX']);
+            $list[] = $hero;
         }
-
         return $list;
     }
 
-    public static function find($id) {
-        $db = Db::getInstance();
-        // we make sure $id is an integer
-        $id = intval($id);
-        $req = $db->prepare('SELECT * FROM heroes WHERE id = :id');
-        // the query was prepared, now we replace :id with our actual $id value
-        $req->execute(array('id' => $id));
-        $post = $req->fetch();
+    /**
+     * @param $id
+     * @return Hero
+     */
+    public function FetchById($id) {
+        $result = $this->find($id);
+        $hero = new hero();
+        $hero->setId($result['id'])
+            ->setImagePath($result['imagePath'])
+            ->setName($result['name'])
+            ->setPosY($result['posY'])
+            ->setPosX($result['posX']);
+        return $hero;
+    }
 
-        return new Post(
-            $post['id'],
-            $post['name'],
-            $post['posX'],
-            $post['posY'],
-            $post['author']
-        );
+    /**
+     * @return mixed
+     */
+    public function save(){
+        if(!$this->id){
+            $hero = $this->insert(array(
+                "imagePath" => $this->imagePath,
+                "name" => $this->name,
+                "posX" => $this->posX,
+                "posY" => $this->posY
+            ));
+        } else {
+            $hero = $this->update(array(
+                "id" => $this->id,
+                "imagePath" => $this->imagePath,
+                "name" => $this->name,
+                "posX" => $this->posX,
+                "posY" => $this->posY
+            ));
+        }
+        unset($hero->table);
+        return $hero;
     }
 }

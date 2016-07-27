@@ -1,9 +1,7 @@
-A Most Simple PHP MVC Beginners Tutorial
+HTPP MVC BACKEND 
 ====================
 
-Just a demo application related to one of my blog posts: [A Most Simple PHP MVC Beginners Tutorial](http://requiremind.com/a-most-simple-php-mvc-beginners-tutorial/).
-
-This shows how one can build an MVC app with PHP.
+Based on A Most Simple PHP MVC Beginners Tutorial BY Neil Rosenstech
 
 ## License
 
