@@ -38,4 +38,10 @@ class httpController {
         $this->model->setId($this->actionWith);
         $this->model->delete();
     }
+
+
+    public function error()
+    {
+        require_once('views/error.php');
+    }
 }
