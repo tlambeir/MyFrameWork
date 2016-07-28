@@ -1,5 +1,5 @@
 <?php
-require_once ("http_controller.php");
+require_once("httpcontroller.php");
 class HeroesController extends httpController{
 
     function __construct($actionWith) {

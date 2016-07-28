@@ -1,37 +1,25 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Credentials", "true");
-header('Access-Control-Allow-Methods : GET, POST, OPTIONS, PUT, DELETE');
-header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
-header('Content-Type', 'application/json');
+  require_once('connection.php');
 
-function get() {
-    include 'get.php';
-}
+  header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Credentials", "true");
+  header('Access-Control-Allow-Methods : GET, POST, OPTIONS, PUT, DELETE');
+  header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
 
-function delete() {
-    include 'delete.php';
-}
+  $route = explode('/', $_SERVER['REQUEST_URI']);
 
-function post() {
-    include 'post.php';
-}
+  if (isset($route[1])) {
+    $controller = $route[1];
+  } else {
+    echo "No route specified!";
+  }
 
-function put() {
-    include 'put.php';
-}
+    if (isset($route[2])) {
+        $actionWith = $route[2];
+    } else {
+        $actionWith = null;
+    }
 
-switch(filter_input( INPUT_SERVER, 'REQUEST_METHOD' )){
-    case "GET":
-        get();
-        break;
-    case "PUT":
-        put();
-        break;
-    case "DELETE":
-        delete();
-        break;
-    case "POST":
-        post();
-        break;
-}
+  $action = filter_input( INPUT_SERVER, 'REQUEST_METHOD' );
+
+  require_once('routes.php');
