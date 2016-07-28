@@ -6,6 +6,8 @@ A Simple http MVC backend that supports GET, POST, PUT and DELETE Methods.
 
 Based on A Most Simple PHP MVC Beginners Tutorial BY Neil Rosenstech
 
+php -S localhost:8000 routing.php
+
 ## License
 
 MIT License (MIT)

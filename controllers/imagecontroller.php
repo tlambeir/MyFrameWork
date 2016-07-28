@@ -27,7 +27,7 @@ class ImageController{
             }
 
             // You should also check filesize here.
-            if ($_FILES['file']['size'] > 1000000) {
+            if ($_FILES['file']['size'] > 10000000) {
                 throw new RuntimeException('Exceeded filesize limit.');
             }
 

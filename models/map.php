@@ -22,6 +22,50 @@ class Map extends Model{
      */
     public $imagePath;
 
+    /**
+     * @var int
+     */
+    public $gridSeperation;
+
+    /**
+     * @var string
+     */
+    public $gridColor;
+
+    /**
+     * @var string
+     */
+    public $gridEnabled;
+
+    /**
+     * @param $gridSeperation
+     * @return $this
+     */
+    public function setGridSeperation($gridSeperation)
+    {
+        $this->gridSeperation = $gridSeperation;
+        return $this;
+    }
+
+    /**
+     * @param $gridColor
+     * @return $this
+     */
+    public function setGridColor($gridColor)
+    {
+        $this->gridColor = $gridColor;
+        return $this;
+    }
+
+    /**
+     * @param $gridEnabled
+     * @return $this
+     */
+    public function setGridEnabled($gridEnabled)
+    {
+        $this->gridEnabled = $gridEnabled;
+        return $this;
+    }
 
     /**
      * @param $id
@@ -63,7 +107,10 @@ class Map extends Model{
             $map = new Map();
             $map->setId($result['id'])
                 ->setImagePath($result['imagePath'])
-                ->setName($result['name']);
+                ->setName($result['name'])
+                ->setGridColor($result['gridColor'])
+                ->setGridEnabled($result['gridEnabled'])
+                ->setGridSeperation($result['gridSeperation']);
             $list[] = $map;
         }
 
@@ -79,7 +126,10 @@ class Map extends Model{
         $map = new Map();
         $map->setId($result['id'])
             ->setImagePath($result['imagePath'])
-            ->setName($result['name']);
+            ->setName($result['name'])
+            ->setGridColor($result['gridColor'])
+            ->setGridEnabled($result['gridEnabled'])
+            ->setGridSeperation($result['gridSeperation']);
         return $map;
     }
 
@@ -87,13 +137,19 @@ class Map extends Model{
         if(!$this->id){
             $map = $this->insert(array(
                 "imagePath" => $this->imagePath,
-                "name" => $this->name
+                "name" => $this->name,
+                "gridColor" => $this->gridColor,
+                "gridEnabled" => $this->gridEnabled,
+                "gridSeperation" => $this->gridSeperation,
             ));
         } else {
             $map = $this->update(array(
                 "id" => $this->id,
                 "imagePath" => $this->imagePath,
-                "name" => $this->name
+                "name" => $this->name,
+                "gridColor" => $this->gridColor,
+                "gridEnabled" => $this->gridEnabled,
+                "gridSeperation" => $this->gridSeperation,
             ));
         }
         unset($map->table);
