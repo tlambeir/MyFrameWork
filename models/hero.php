@@ -7,6 +7,7 @@ class Hero extends Model{
     public $posX;
     public $posY;
     public $imagePath;
+    public $angle;
     /**
      * @var string
      */
@@ -18,6 +19,16 @@ class Hero extends Model{
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param $angle
+     * @return $this
+     */
+    public function setAngle($angle)
+    {
+        $this->angle = $angle;
+        return $this;
     }
 
     /**
@@ -114,7 +125,8 @@ class Hero extends Model{
                 ->setImagePath($result['imagePath'])
                 ->setName($result['name'])
                 ->setPosY($result['posY'])
-                ->setPosX($result['posX']);
+                ->setPosX($result['posX'])
+                ->setAngle($result['angle']);
             $list[] = $hero;
         }
         return $list;
@@ -131,7 +143,8 @@ class Hero extends Model{
             ->setImagePath($result['imagePath'])
             ->setName($result['name'])
             ->setPosY($result['posY'])
-            ->setPosX($result['posX']);
+            ->setPosX($result['posX'])
+            ->setAngle($result['angle']);
         return $hero;
     }
 
@@ -144,7 +157,8 @@ class Hero extends Model{
                 "imagePath" => $this->imagePath,
                 "name" => $this->name,
                 "posX" => $this->posX,
-                "posY" => $this->posY
+                "posY" => $this->posY,
+                "angle" => $this->angle,
             ));
         } else {
             $hero = $this->update(array(
@@ -152,7 +166,8 @@ class Hero extends Model{
                 "imagePath" => $this->imagePath,
                 "name" => $this->name,
                 "posX" => $this->posX,
-                "posY" => $this->posY
+                "posY" => $this->posY,
+                "angle" => $this->angle,
             ));
         }
         unset($hero->table);

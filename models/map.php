@@ -43,7 +43,7 @@ class Map extends Model{
      */
     public function setGridSeperation($gridSeperation)
     {
-        $this->gridSeperation = $gridSeperation;
+        $this->gridSeperation = (int)$gridSeperation;
         return $this;
     }
 

@@ -16,7 +16,8 @@ class HeroesController extends httpController{
         $this->model->setName($this->post->name)
             ->setImagePath($this->post->imagePath)
             ->setPosX($this->post->posX)
-            ->setPosY($this->post->posY);
+            ->setPosY($this->post->posY)
+            ->setPosY($this->post->angle);
         $array = $this->save();
         require_once('views/json.php');
     }
@@ -26,7 +27,8 @@ class HeroesController extends httpController{
             ->setName($this->post->name)
             ->setImagePath($this->post->imagePath)
             ->setPosX($this->post->posX)
-            ->setPosY($this->post->posY);
+            ->setPosY($this->post->posY)
+            ->setPosY($this->post->angle);
         $array = $this->save();
         require_once('views/json.php');
     }
